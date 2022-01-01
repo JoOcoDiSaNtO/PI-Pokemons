@@ -18,7 +18,6 @@ router.get("/", async (req, res) => {
     if (name === undefined) {
       const PApi = await GetAllPokemonsApi();
       const PDB = await GetAllPokemonsDB();
-      console.log(PDB.length);
       if (PDB.length > 0) {
         const AllP = PApi.concat(PDB);
         res.send(AllP);
@@ -53,16 +52,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/createPokemon", async (req, res) => {
-  const { id, name, hp, attack, defense, speed, height, weight, image } =
+router.post("/createPokemons", async (req, res) => {
+  const { id, name, hp, attack, defense, speed, height, weight, image, types } =
     req.body;
   try {
     /*----Veo si ese nombre ya existe en la Db o en la API-----*/
     const nameDb = req.body.name;
-    const pokeAPI = await GetAllPokemonsApiByName(nameDb);
     const pokeDB = await GetAllPokemonsDBbyName(nameDb);
-    if (pokeDB || pokeAPI)
-      return res.status(400).send("Pokemon already exists");
+    if (pokeDB) return res.status(400).send("Pokemon already exists");
     /*---------------------------------------------------------*/
     const newPokemon = await CreatePokemon({
       id,
@@ -74,12 +71,13 @@ router.post("/createPokemon", async (req, res) => {
       height,
       weight,
       image,
+      types
     });
     res
       .status(200)
       .json(`YOUR POKEMON NAME: ${newPokemon.name} WAS SUCCESSFULLY CREATED`);
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).json(e)
   }
 });
 

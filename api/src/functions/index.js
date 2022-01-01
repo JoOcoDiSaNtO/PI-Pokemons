@@ -67,6 +67,7 @@ const GetAllPokemonsDB = async () => {
     const PokeDB = await Pokemons.findAll({
       include: {
         model: Types,
+        attributes:["id","name"]
       },
       attributes: [
         "dbId",
@@ -93,6 +94,17 @@ const GetAllPokemonsDBbyName = async (name) => {
       where: {
         name: name,
       },
+      attributes: [
+        "dbId",
+        "name",
+        "hp",
+        "attack",
+        "defense",
+        "speed",
+        "height",
+        "weight",
+        "image",
+      ],
       include: {
         model: Types,
         attributes: ["id", "name"],
@@ -141,7 +153,7 @@ const CreatePokemon = async (pokemon) => {
   try {
     const newPokemon = await Pokemons.create({
       id,
-      name,
+      name: name.toLowerCase(),
       hp,
       attack,
       defense,
@@ -150,13 +162,9 @@ const CreatePokemon = async (pokemon) => {
       weight,
       image,
     });
-    if (types.length === 1) {
-      await newPokemon.addTypes(types[0]);
-    } else {
-      await newPokemon.addTypes(types[0]);
-      await newPokemon.addTypes(types[1]);
+    if(Array.isArray(types)){
+      AssingTypeToPokemon()
     }
-
     return newPokemon;
   } catch (err) {
     console.log(err);
@@ -189,6 +197,7 @@ const CreateType = async (type) => {
 
 const AssingTypeToPokemon = async (pokemon, types) => {
   const pokeAssing = await Pokemons.findByPk(pokemon);
+  console.log(pokeAssing);
   const typeAssing = await Types.findAll({
     where: {
       [Op.or]: [{ id: types[0] }, { id: types[1] }],
@@ -209,3 +218,14 @@ module.exports = {
   FillDBofTypes,
   AssingTypeToPokemon,
 };
+
+/*
+      "name": "joaco",
+      "hp": "100",
+      "attack": "100",
+      "defense": "100",
+      "speed": "100",
+      "height": "100",
+      "weight": "100",
+      "image": "url",
+ */

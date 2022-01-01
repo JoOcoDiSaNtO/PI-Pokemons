@@ -15,7 +15,7 @@ export function Pokemons() {
   return (
     <ul className="Pokemones" >
       {pokemons.map((p) => {
-        return <Pokemon name={p.name} image={p.image} key={p.name}/>;
+        return <Pokemon name={p.name} image={p.image} type={p.type} key={p.name}/>;
       })}
     </ul>
   );

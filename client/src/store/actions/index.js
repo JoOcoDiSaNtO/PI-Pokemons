@@ -19,18 +19,36 @@ export function getAllPokemons() {
   };
 }
 export function findPokemon(Search) {
-  return function (dispatch) {
-    console.log(Search);
-    axios
-      .get("http://localhost:3001/api/pokemon?name=" + Search)
-      .then((pokemon) => {
-        dispatch({
-          type: FIND_POKEMONS,
-          payload: pokemon.data,
+  console.log(Search)
+  if (typeof Search === "string") {
+    return function (dispatch) {
+      axios
+        .get("http://localhost:3001/api/pokemon?name=" + Search)
+        .then((pokemon) => {
+          dispatch({
+            type: FIND_POKEMONS,
+            payload: pokemon.data,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+          dispatch({ type: FIND_POKEMONS, payload: null });
         });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+    };
+  } else if (typeof Search === "number") {
+    return function (dispatch) {
+      axios
+        .get("http://localhost:3001/api/pokemon/" + Search)
+        .then((pokemon) => {
+          dispatch({
+            type: FIND_POKEMONS,
+            payload: pokemon.data,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+          dispatch({ type: FIND_POKEMONS, payload: null });
+        });
+    };
+  }
 }
