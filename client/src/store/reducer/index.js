@@ -1,6 +1,6 @@
-import { FIND_POKEMONS, GET_ALL_POKEMONS } from "../actions";
+import { SEARCH_NAME, GET_ALL_POKEMONS } from "../actions";
 
-const InitialState = {
+export const InitialState = {
   Pokemons: [],
   Pokemon: [],
   Type: [],
@@ -19,7 +19,7 @@ export function Reducer(state = InitialState, action) {
         ...state,
         Pokemons: action.payload,
       };
-    case FIND_POKEMONS:
+    case SEARCH_NAME:
       return {
         ...state,
         Pokemon: action.payload,
@@ -28,3 +28,4 @@ export function Reducer(state = InitialState, action) {
       return state;
   }
 }
+

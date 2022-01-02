@@ -1,0 +1,41 @@
+.SearchBar {
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.BtnBusqueda {
+  margin-left: 5px;
+}
+
+.InpSearch {
+  background-color: white;
+  border: 0;
+  border-radius: 2px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 10px;
+  padding: 15px;
+  width: 300px;
+  height: 30px;
+}
+
+.AutoContainer {
+  display: list-item;
+  width: 330px;
+  height: 150px;
+  background-color: white;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.AutoContainer :-webkit-scrollbar {
+  display: none;
+}
+/*# sourceMappingURL=searchbar.css.map */

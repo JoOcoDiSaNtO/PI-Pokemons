@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
-export const FIND_POKEMONS = "FIND_POKEMONS";
+export const SEARCH_NAME = "SEARCH_NAME";
 
 export function getAllPokemons() {
   return function (dispatch) {
@@ -18,37 +18,18 @@ export function getAllPokemons() {
       });
   };
 }
-export function findPokemon(Search) {
-  console.log(Search)
-  if (typeof Search === "string") {
-    return function (dispatch) {
-      axios
-        .get("http://localhost:3001/api/pokemon?name=" + Search)
-        .then((pokemon) => {
-          dispatch({
-            type: FIND_POKEMONS,
-            payload: pokemon.data,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-          dispatch({ type: FIND_POKEMONS, payload: null });
-        });
-    };
-  } else if (typeof Search === "number") {
-    return function (dispatch) {
-      axios
-        .get("http://localhost:3001/api/pokemon/" + Search)
-        .then((pokemon) => {
-          dispatch({
-            type: FIND_POKEMONS,
-            payload: pokemon.data,
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-          dispatch({ type: FIND_POKEMONS, payload: null });
-        });
-    };
-  }
+
+export function findPokemon(name) {
+  console.log(name)
+  return async function (dispatch) {
+    try {
+      var json = await axios.get("http://localhost:3001/api/pokemon?name=" + name) 
+      return dispatch({
+        type: "SEARCH_NAME",
+        payload: json.data,
+      });
+    } catch {
+      return alert("No se encontró el pokemon");
+    }
+  };
 }

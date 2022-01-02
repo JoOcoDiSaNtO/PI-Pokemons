@@ -1,35 +1,50 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { findPokemon } from "../../store/actions";
+import { Autocomplete } from "./autocomplete/autocomplete";
+import "./searchbar.css";
 
-export function SearchBar() {
-  const [Search, setSearch] = useState("");
-  const [Id, setId] = useState("")
+function SearchBar() {
+  const dispatch = useDispatch();
+  const [display, setDisplay] = useState(false);
+  const [search, setSearch] = useState("");
 
-  let dispatch = useDispatch();
-
-  function sucum(e) {
-    e.preventDefault();
-    dispatch(findPokemon(Search));
-  }
-
-  function onInputChange(e) {
+  const handleInputChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
-  }
+  };
 
-  function OnIdChange(e){
+  const handelSubmit = (e) => {
     e.preventDefault();
-    setId(e.target.value);
-  }
+    dispatch(findPokemon(search));
+  };
 
   return (
-    <div>
-      <form onSubmit={sucum}>
-        <p>Busca Por Nombre</p>
-            <input type="search" onChange={onInputChange} value={Search} />
-            <input type="submit" value="Buscar" />
-      </form>
+    <div className="SearchBar">
+      <div>
+        <input
+          type="text"
+          onChange={(e) => handleInputChange(e)}
+          onClick={(e) => setDisplay(!display)}
+          placeholder="Buscar Pokemon ..."
+          className="InpSearch"
+        />
+        {display && (
+          <div className="AutoContainer">
+            <Autocomplete />
+          </div>
+        )}
+      </div>
+      <div>
+        <button
+          type="submit"
+          onClick={(e) => handelSubmit(e)}
+          className="BtnBusqueda"
+        > Buscar
+        </button>
+      </div>
     </div>
   );
 }
+
+export default SearchBar;

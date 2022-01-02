@@ -1,0 +1,25 @@
+.imagen {
+  padding-left: 5px;
+  height: 50px;
+  width: 50px;
+}
+
+.PokemonList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: 2px solid;
+}
+
+.PokemonList .nombres {
+  padding: 0px;
+}
+
+.PokemonList .nombres p {
+  font-size: 15px;
+}
+/*# sourceMappingURL=autocomplete.css.map */

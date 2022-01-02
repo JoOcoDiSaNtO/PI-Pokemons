@@ -216,7 +216,6 @@ module.exports = {
   GetPokemonDBbyId,
   GetTypesFromApi,
   FillDBofTypes,
-  AssingTypeToPokemon,
 };
 
 /*

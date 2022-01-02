@@ -1,12 +1,11 @@
 import "./App.css";
-import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Pokemons } from "./components/Home/Pokemons";
-import "./components/Home/Pokemons.css";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
   return (
     <div>
-      <SearchBar />
+      <SearchBar/>
       <Pokemons />
     </div>
   );
